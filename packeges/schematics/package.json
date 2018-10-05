@@ -1,0 +1,31 @@
+{
+  "name": "@electron-schematics/schematics",
+  "version": "0.4.3",
+  "description": "Schematics specific to Electron",
+  "keywords": [
+    "angular",
+    "electron",
+    "blueprints",
+    "code generation",
+    "schematics"
+  ],
+  "schematics": "./collection.json",
+  "author": "Shalom Pelles <shalom.pelles@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shalomdotnet/electron-schematics.git"
+  },
+  "bugs": {
+    "url": "https://github.com/shalomdotnet/electron-schematics/issues"
+  },
+  "homepage": "https://github.com/shalomdotnet/electron-schematics#readme",
+  "license": "MIT",
+  "dependencies": {
+    "@angular-devkit/core": "^0.7.5",
+    "@angular-devkit/schematics": "^0.7.5",
+    "@schematics/angular": "^0.8.4"
+  },
+  "devDependencies": {
+    "typescript": "^3.0.3"
+  }
+}

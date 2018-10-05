@@ -1,0 +1,10 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "SchematicsElectronStart",
+    "title": "Start Angular-Electron Options Schema",
+    "type": "object",
+    "properties": {
+    },
+    "required": [
+    ]
+  }

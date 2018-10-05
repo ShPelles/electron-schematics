@@ -1,0 +1,10 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "id": "SchematicsElectronBuild",
+    "title": "Angular-Electron Build Options Schema",
+    "type": "object",
+    "properties": {
+    },
+    "required": [
+    ]
+  }
