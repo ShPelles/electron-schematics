@@ -13,12 +13,12 @@
   "author": "Shalom Pelles <shalom.pelles@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shalomdotnet/electron-schematics.git"
+    "url": "git+https://github.com/shpelles/electron-schematics.git"
   },
   "bugs": {
-    "url": "https://github.com/shalomdotnet/electron-schematics/issues"
+    "url": "https://github.com/shpelles/electron-schematics/issues"
   },
-  "homepage": "https://github.com/shalomdotnet/electron-schematics#readme",
+  "homepage": "https://github.com/shpelles/electron-schematics#readme",
   "license": "MIT",
   "dependencies": {
     "@angular-devkit/core": "^0.7.5",
