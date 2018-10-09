@@ -3,7 +3,7 @@ export interface Schema {
     /**
     * The name of the electron-app.
     */
-   name: string;
+   name?: string;
 
     /**
      * Name of related app.

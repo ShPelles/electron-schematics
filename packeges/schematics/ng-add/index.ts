@@ -93,7 +93,9 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
       },
     };
 
+    if (options.name === undefined) { throw new SchematicsException('Name must have a value'); }
     workspace.projects[options.name] = project;
+
     host.overwrite(getWorkspacePath(host), JSON.stringify(workspace, null, 2));
   };
 }
