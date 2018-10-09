@@ -23,7 +23,7 @@ steps:
   workingDirectory: $(Build.SourcesDirectory)/packages/schematics
   displayName: 'npm install (schematics package)'
 
-- script: npm build
+- script: npm run build
   displayName: 'npm build'
   continueOnError: true
 
