@@ -27,8 +27,8 @@ steps:
   displayName: 'npm build'
   continueOnError: true
 
-- script: npm lint
-  displayName: 'npm run lint'
+- script: npm run lint
+  displayName: 'npm lint'
 
-- script: npm test
-  displayName: 'npm run test'
+- script: npm run test
+  displayName: 'npm test'
