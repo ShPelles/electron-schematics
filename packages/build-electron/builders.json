@@ -5,6 +5,11 @@
       "class": "./src/start",
       "schema": "./src/start/schema.json",
       "description": "Run an Electron application."
+    },
+    "build": {
+      "class": "./src/build",
+      "schema": "./src/build/schema.json",
+      "description": "Build an Electron application."
     }
   }
 }
