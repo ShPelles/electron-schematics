@@ -66,9 +66,12 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
       root: projectRoot,
       projectType: 'application',
       architect: {
-        // build:{
-
-        // },
+        build: {
+          builder: '@electron-schematics/build-electron:build',
+          options: {
+            relatedApp: options.relatedAppName,
+          },
+        },
         serve: {
           builder: '@electron-schematics/build-electron:start',
           options: {

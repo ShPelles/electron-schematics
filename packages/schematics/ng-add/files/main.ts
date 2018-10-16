@@ -5,13 +5,17 @@ import { app, BrowserWindow } from 'electron';
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow: BrowserWindow | null = null;
 
-function createWindow () {
+function createWindow() {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
   // and load the index.html of the app.
-  // mainWindow.loadFile('index.html');
-  mainWindow.loadURL('http://localhost:4200/');
+  const isServe = process.argv.includes('--serve');
+  if (isServe) {
+    mainWindow.loadURL('http://localhost:4200/');
+  } else {
+    mainWindow.loadFile('index.html');
+  }
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();

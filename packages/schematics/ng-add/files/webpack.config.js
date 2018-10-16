@@ -22,7 +22,7 @@ module.exports = {
     ],
     watch: true,
     output: {
-        filename: 'main.js',
+        filename: 'index.js',
         path: path.resolve(__dirname, '../../dist/<%= name %>'),
     },
 };

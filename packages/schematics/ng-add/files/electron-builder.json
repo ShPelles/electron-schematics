@@ -1,0 +1,12 @@
+{
+    "directories": {
+        "app": "./dist/<%= name %>"
+    },
+    "files": [
+        "**/*",
+        {
+            "from": "../<%= relatedAppName %>",
+            "filter": ["**/*"]
+        }
+    ]
+}
