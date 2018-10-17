@@ -1,4 +1,4 @@
-# @electron-schematics/build-electron
+# Electron - Schematics
 [![npm version](https://img.shields.io/npm/v/%40electron-schematics/schematics.svg)](https://npmjs.org/package/%40electron-schematics/schematics)
 
 ## How to use
@@ -15,5 +15,7 @@ ng serve electron
 ```
 
 ### Build Electron
-WIP
+```
+ng build electron
+```
  
