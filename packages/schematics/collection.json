@@ -2,10 +2,10 @@
   "$schema": "./node_modules/@angular-devkit/schematics/collection-schema.json",
   "schematics": {
     "ng-add": {
-      "aliases": ["init"],
+      "aliases": ["init", "electron"],
       "description": "Add an Electron to the Angular app",
-      "factory": "./ng-add/index#electron",
-      "schema": "./ng-add/schema.json"
+      "factory": "./src/ng-add/index#electron",
+      "schema": "./src/ng-add/schema.json"
     }
   }
 }
