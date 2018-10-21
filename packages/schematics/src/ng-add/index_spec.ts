@@ -6,7 +6,7 @@ import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/te
 import { Schema } from './schema';
 
 
-const collectionPath = path.join(__dirname, '../collection.json');
+const collectionPath = path.join(__dirname, '../../collection.json');
 
 describe('ng-add', () => {
 
