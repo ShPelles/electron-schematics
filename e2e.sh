@@ -20,13 +20,16 @@ npm i ../packages/schematics/electron-schematics-schematics-0.0.1.tgz
 ng g @electron-schematics/schematics:electron
 npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
 
-# run the app
+# run the app with auto exit
 mv --force 'main.ts' 'projects/electron/main.ts'
 ng serve electron
 
 # check if log file exists
-if [[ ! -f e2e.log ]] ; then
-    exit 1
-fi
+# if [[ ! -f e2e.log ]] ; then
+#     exit 1
+# fi
+
+# try to build the app
+ng build electron
 
 # read -p "Press enter to continue"
