@@ -1,21 +1,30 @@
-# set -e
+set -e
 set -v
 
+# build & pack the packages
 npm run build
-# read -p "Press enter to continue"
 
-cd packages/build-electron
+cd packages/schematics
 npm version 0.0.1 -git-tag-version false
 npm pack
-# read -p "Press enter to continue"
 
+cd ../build-electron
+npm version 0.0.1 -git-tag-version false
+npm pack
+
+# install packages & generate electron project
 cd ../../e2e
-npm i ../packages/schematics
+npm i ../packages/schematics/electron-schematics-schematics-0.0.1.tgz
 ng g @electron-schematics/schematics:electron
-mv -force 'main.ts' 'projects/electron/main.ts'
-read -p "Press enter to continue"
-
 npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
+
+# run the app
+mv --force 'main.ts' 'projects/electron/main.ts'
 ng serve electron
 
-read -p "Press enter to continue"
+# check if log file exists
+if [[ ! -f e2e.log ]] ; then
+    exit 1
+fi
+
+# read -p "Press enter to continue"
