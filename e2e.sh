@@ -12,6 +12,8 @@ cd ../build-electron
 npm version 0.0.1 -git-tag-version false
 npm pack
 
+npm i @angular/cli -g
+
 # install packages & generate electron project
 cd ../../e2e
 npm i ../packages/schematics/electron-schematics-schematics-0.0.1.tgz
