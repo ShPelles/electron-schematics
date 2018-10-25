@@ -30,6 +30,7 @@ ng serve electron
 # fi
 
 # try to build the app
+rm -r ./dist
 ng build electron
 
 # read -p "Press enter to continue"
