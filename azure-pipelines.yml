@@ -32,3 +32,8 @@ steps:
 
 - script: npm run test
   displayName: 'npm test'
+
+- task: ShellScript@2
+  inputs:
+    scriptPath: './e2e.sh'
+    timeout: 10

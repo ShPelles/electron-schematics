@@ -59,6 +59,7 @@
   
   "exclude": [
     "node_modules",
-    "**/files"
+    "**/files",
+    "e2e"
   ]
 }

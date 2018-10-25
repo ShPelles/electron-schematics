@@ -4,7 +4,7 @@
   "description": "Electron extensions for Angular Schematics",
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "lint": "tslint --project tslint.json",
+    "lint": "tslint -c tslint.json --project tsconfig.json",
     "test": "jasmine **/src/**/*_spec.js"
   },
   "keywords": [
