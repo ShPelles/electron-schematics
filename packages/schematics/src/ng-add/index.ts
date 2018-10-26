@@ -70,6 +70,7 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
           builder: '@electron-schematics/build-electron:build',
           options: {
             relatedApp: options.relatedAppName,
+            webpackConfig: `${projectRoot}webpack.config.js`,
           },
         },
         serve: {

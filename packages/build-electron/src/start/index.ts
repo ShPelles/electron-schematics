@@ -9,7 +9,7 @@ import {
 import { normalize, getSystemPath } from '@angular-devkit/core';
 
 import { Observable, of, merge } from 'rxjs';
-import { mapTo, concatMap, share, first, switchMap, dematerialize, materialize } from 'rxjs/operators';
+import { concatMap, share, first, switchMap, dematerialize, materialize } from 'rxjs/operators';
 
 import { ElectronStartBuilderSchema } from './schema';
 import { WebpackBuilder } from '@angular-devkit/build-webpack';
@@ -47,9 +47,7 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
 
     private _buildElectron(builderConfig: BuilderConfiguration<ElectronStartBuilderSchema>): Observable<BuildEvent> {
         const webpackBuilder = new WebpackBuilder({ ...this.context });
-        return webpackBuilder.run(builderConfig).pipe(
-            mapTo({ success: true })
-        );
+        return webpackBuilder.run(builderConfig);
     }
 
     private _runElectron(builderConfig: BuilderConfiguration<ElectronStartBuilderSchema>): Observable<BuildEvent> {
