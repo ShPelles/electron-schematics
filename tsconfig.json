@@ -60,6 +60,7 @@
   "exclude": [
     "node_modules",
     "**/files",
-    "e2e"
+    "e2e",
+    "e2e-v6"
   ]
 }
