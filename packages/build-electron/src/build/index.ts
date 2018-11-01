@@ -44,10 +44,7 @@ export class ElectronBuilder implements Builder<ElectronBuilderSchema> {
 
         buildConfig.options.baseHref = '';
 
-        return this.context.architect.getBuilderDescription(buildConfig).pipe(
-            concatMap(desc => this.context.architect.validateBuilderOptions(buildConfig, desc)),
-            concatMap(() => this.context.architect.run(buildConfig)),
-        );
+        return this.context.architect.run(buildConfig);
     }
 
     private _packApp(builderConfig: BuilderConfiguration<ElectronBuilderSchema>): Observable<BuildEvent> {
