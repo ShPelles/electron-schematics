@@ -3,6 +3,7 @@ src/**/*.js
 src/**/*.js.map
 src/**/*.d.ts
 e2e/dist
+e2e-v6/dist
 
 # IDEs
 .idea/
