@@ -16,7 +16,7 @@ npm i @angular/cli -g
 
 # goto e2e directory
 cd ../../e2e$1
-$ echo $PWD
+echo $PWD
 
 # install packages & generate electron project
 npm i ../packages/schematics/electron-schematics-schematics-0.0.1.tgz
