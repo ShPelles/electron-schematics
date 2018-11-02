@@ -29,7 +29,7 @@ ng serve electron
 
 ls
 # check if log file exists
-if [[ ! -f "e2e.log" ]] ; then
+if [[ ! -f "./e2e.log" ]] ; then
     exit 1
 fi
 
