@@ -9,7 +9,7 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
   
   steps:
-  - template: pipelines/build.yml
+  - template: build.yml
   - task: ShellScript@2
     inputs:
       scriptPath: './e2e.sh'
