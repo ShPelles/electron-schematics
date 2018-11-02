@@ -21,5 +21,5 @@ jobs:
 
 - template: pipelines/job-template.yml
   parameters:
-    name: Angular 6
+    name: Angular6
     e2eVersion: '-v6'
