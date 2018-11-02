@@ -4,23 +4,22 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
 
 jobs:
-- job: Linux
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - template: pipelines/build.yml
-  - template: pipelines/e2e.yml
+- template: pipelines/job-template.yml
+  parameters:
+    name: Linux
+    # vmImage: 'ubuntu-16.04'
 
-- job: macOS
-  pool:
+- template: pipelines/job-template.yml
+  parameters:
+    name: macOS
     vmImage: 'macOS-10.13'
-  steps:
-  - template: pipelines/build.yml
-  - template: pipelines/e2e.yml
 
-- job: Windows
-  pool:
+- template: pipelines/job-template.yml
+  parameters:
+    name: Windows
     vmImage: 'vs2017-win2016'
-  steps:
-  - template: pipelines/build.yml
-  - template: pipelines/e2e.yml
+
+- template: pipelines/job-template.yml
+  parameters:
+    name: Angular 6
+    e2eVersion: '-v6'
