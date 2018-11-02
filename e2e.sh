@@ -15,7 +15,7 @@ npm pack
 npm i @angular/cli -g
 
 # goto e2e directory
-cd ../../e2e$
+cd ../../e2e$1
 $ echo $PWD
 
 # install packages & generate electron project
