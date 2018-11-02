@@ -21,7 +21,7 @@ ng g @electron-schematics/schematics:electron
 npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
 
 # run the app with auto exit
-mv --force 'main.ts' 'projects/electron/main.ts'
+cp 'main.ts' 'projects/electron/main.ts'
 ng serve electron
 
 # check if log file exists
