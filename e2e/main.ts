@@ -9,7 +9,7 @@ let mainWindow: BrowserWindow | null = null;
 function createWindow() {
 
   ipcMain.on('angular', (_event, data) => {
-    writeFileSync('e2e.log', data);
+    writeFileSync('./e2e.log', data);
     app.exit();
   });
 
