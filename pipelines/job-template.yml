@@ -3,7 +3,7 @@ parameters:
   vmImage: 'ubuntu-16.04'
   e2eVersion: ''
   logPath: '../'
-
+  appPath: './dist/electron-0.0.1.'
 
 jobs:
 - job: ${{ parameters.name }}
@@ -16,4 +16,4 @@ jobs:
     inputs:
       scriptPath: './e2e.sh'
       timeout: 10
-      args: '${{ parameters.logPath }} ${{ parameters.e2eVersion }}'
+      args: '${{ parameters.logPath }} ${{ parameters.appPath }} ${{ parameters.e2eVersion }}'

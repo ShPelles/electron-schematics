@@ -7,23 +7,26 @@ jobs:
 - template: pipelines/job-template.yml
   parameters:
     name: Linux
-    # vmImage: 'ubuntu-16.04'
-    # logPath: '../'
+    vmImage: 'ubuntu-16.04'
+    logPath: '../'
+    appPath: './dist/electron-0.0.1.'
 
 - template: pipelines/job-template.yml
   parameters:
     name: macOS
     vmImage: 'macOS-10.13'
     logPath: './'
+    appPath: './dist/electron-0.0.1.dmg'
 
 - template: pipelines/job-template.yml
   parameters:
     name: Windows
     vmImage: 'vs2017-win2016'
     logPath: './'
+    appPath: './dist/electron-0.0.1.dmg'
 
 - template: pipelines/job-template.yml
   parameters:
     name: Angular6
     e2eVersion: '-v6'
-    # logPath: '../'
+
