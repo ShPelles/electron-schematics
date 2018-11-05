@@ -2,6 +2,8 @@ parameters:
   name: ''  # defaults for any parameters that aren't specified
   vmImage: 'ubuntu-16.04'
   e2eVersion: ''
+  logPath: '../'
+
 
 jobs:
 - job: ${{ parameters.name }}
@@ -14,4 +16,4 @@ jobs:
     inputs:
       scriptPath: './e2e.sh'
       timeout: 10
-      args: '${{ parameters.e2eVersion }}'
+      args: '${{ parameters.e2eVersion }} ${{ parameters.logPath }}'

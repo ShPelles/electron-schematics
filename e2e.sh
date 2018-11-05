@@ -27,14 +27,19 @@ npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
 cp 'main.ts' 'projects/electron/main.ts'
 ng serve electron
 
-ls
 # check if log file exists
-if [[ ! -f "./e2e.log" ]] ; then
+if [[ ! -f $2e2e.log ]] ; then
     exit 1
 fi
 
 # try to build the app
 rm -r ./dist
 ng build electron
+
+ls ./dist
+# check if electron app exists
+# if [[ ! -f $3 ]] ; then
+#     exit 1
+# fi
 
 # read -p "Press enter to continue"
