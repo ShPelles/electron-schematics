@@ -15,4 +15,4 @@ jobs:
     inputs:
       scriptPath: './e2e.sh'
       timeout: 10
-      args: '${{ parameters.appPath }} ${{ parameters.e2eVersion }}'
+      args: '"${{ parameters.appPath }}" ${{ parameters.e2eVersion }}'
