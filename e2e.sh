@@ -15,7 +15,7 @@ npm pack
 npm i @angular/cli -g
 
 # goto e2e directory
-cd ../../e2e$1
+cd ../../e2e$2
 echo $PWD
 
 # install packages & generate electron project
@@ -28,7 +28,7 @@ cp 'main.ts' 'projects/electron/main.ts'
 ng serve electron
 
 # check if log file exists
-if [[ ! -f $2e2e.log ]] ; then
+if [[ ! -f $1e2e.log ]] ; then
     exit 1
 fi
 
