@@ -1,6 +1,5 @@
 // Modules to control application life and create native browser window
 import { app, BrowserWindow, ipcMain } from 'electron';
-import { writeFileSync } from 'fs';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -9,7 +8,7 @@ let mainWindow: BrowserWindow | null = null;
 function createWindow() {
 
   ipcMain.on('angular', (_event, data) => {
-    writeFileSync('./e2e.log', data);
+    console.log('Angualr say: ' + data);
     app.exit();
   });
 
