@@ -1,0 +1,18 @@
+parameters:
+  name: ''  # defaults for any parameters that aren't specified
+  vmImage: 'ubuntu-16.04'
+  e2eVersion: ''
+  appPath: './dist/electron-0.0.1-x86_64.AppImage'
+
+jobs:
+- job: ${{ parameters.name }}
+  pool: 
+    vmImage: ${{ parameters.vmImage }}
+  
+  steps:
+  - template: build.yml
+  - task: ShellScript@2
+    inputs:
+      scriptPath: './e2e.sh'
+      timeout: 10
+      args: '"${{ parameters.appPath }}" ${{ parameters.e2eVersion }}'
