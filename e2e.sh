@@ -26,6 +26,7 @@ npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
 # run the app with auto exit
 cp 'main.ts' 'projects/electron/main.ts'
 LOG=$(ng serve electron)
+echo $log
 
 # check the log
 if [[ ! $LOG == *"Angualr say: on init"* ]] ; then
@@ -41,4 +42,4 @@ if [[ ! -f $1 ]] ; then
     exit 1
 fi
 
-read -p "Press enter to continue"
+# read -p "Press enter to continue"
