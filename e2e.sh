@@ -26,7 +26,7 @@ npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
 # run the app with auto exit
 cp 'main.ts' 'projects/electron/main.ts'
 LOG=$(ng serve electron)
-echo $log
+echo $LOG
 
 # check the log
 if [[ ! $LOG == *"Angualr say: on init"* ]] ; then
