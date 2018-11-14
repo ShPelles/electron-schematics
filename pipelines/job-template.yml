@@ -1,8 +1,8 @@
 parameters:
   name: ''  # defaults for any parameters that aren't specified
-  vmImage: 'ubuntu-16.04'
+  vmImage: 'vs2017-win2016'
   e2eVersion: ''
-  appPath: './dist/electron-0.0.1-x86_64.AppImage'
+  appPath: './dist/electron Setup 0.0.1.exe'
 
 jobs:
 - job: ${{ parameters.name }}
@@ -15,4 +15,4 @@ jobs:
     inputs:
       scriptPath: './e2e.sh'
       timeout: 10
-      args: '"${{ parameters.appPath }}" ${{ parameters.e2eVersion }}'
+      args: '"${{ parameters.appPath }}" ${{ parameters.vmImage }} ${{ parameters.e2eVersion }}'
