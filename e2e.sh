@@ -29,7 +29,7 @@ npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
 cp 'main.ts' 'projects/electron/main.ts'    
 LOG=$(ng serve electron);
 
-if [[ ! $$2 == "ubuntu"* ]] ; then
+if [[ ! $2 == "ubuntu"* ]] ; then
     if [[ ! $LOG == *"Angualr say: on init"* ]] ; then
         exit 1
     fi
