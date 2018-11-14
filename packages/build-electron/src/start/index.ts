@@ -58,7 +58,7 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         const electron = require('electron');
 
         return new Observable((subscriber) => {
-            const child = proc.spawn(electron, [projectRoot, '--serve']);
+            const child = proc.spawn(electron, [projectRoot, '--serve'], { stdio: ['pipe', 'inherit', 'inherit'] });
             child.on('close', () => subscriber.complete());
             return () => {
                 child.kill();
