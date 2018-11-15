@@ -1,4 +1,5 @@
 import proc from 'child_process';
+import kill from 'tree-kill';
 
 import {
     Builder,
@@ -8,7 +9,7 @@ import {
 } from '@angular-devkit/architect';
 import { normalize, getSystemPath } from '@angular-devkit/core';
 
-import { Observable, of, merge } from 'rxjs';
+import { Observable, of, merge, TeardownLogic } from 'rxjs';
 import { concatMap, share, first, switchMap, dematerialize, materialize } from 'rxjs/operators';
 
 import { ElectronStartBuilderSchema } from './schema';
@@ -60,9 +61,9 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         return new Observable((subscriber) => {
             const child = proc.spawn(electron, [projectRoot, '--serve'], { stdio: ['pipe', 'inherit', 'inherit'] });
             child.on('close', () => subscriber.complete());
-            return () => {
-                child.kill();
-            };
+
+            const teardown: TeardownLogic = () => kill(child.pid);
+            return teardown;
         });
     }
 
