@@ -1,9 +1,18 @@
 set -e
 set -v
 
-# build & pack the packages
-npm run build
 
+# insall dependencies & build (unnecessary on the CI, after the build pipeline)
+# npm install
+# cd packages/build-electron
+# npm install
+# cd ../schematics
+# npm install
+# cd ../..
+# npm run build
+
+
+# pack the packages
 cd packages/schematics
 npm version 0.0.1 -git-tag-version false
 npm pack
@@ -13,6 +22,7 @@ npm version 0.0.1 -git-tag-version false
 npm pack
 
 npm i @angular/cli -g
+
 
 # goto e2e directory
 cd ../../e2e$3
@@ -24,8 +34,7 @@ ng g @electron-schematics/schematics:electron
 npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
 
 
-
-# run the app with auto exit & Check the log
+# run the app with auto exit & check the log
 cp 'main.ts' 'projects/electron/main.ts'    
 LOG=$(ng serve electron);
 
@@ -45,5 +54,6 @@ ng build electron
 if [[ ! -f $1 ]] ; then
     exit 1
 fi
+
 
 # read -p "Press enter to continue"
