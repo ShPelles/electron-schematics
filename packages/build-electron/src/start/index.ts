@@ -20,10 +20,10 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
     constructor(public context: BuilderContext) { }
 
     run(builderConfig: BuilderConfiguration<ElectronStartBuilderSchema>): Observable<BuildEvent> {
-        const targetString = builderConfig.options.browserTarget;
-        const [project, target, configuration] = targetString.split(':');
+        const { browserTarget, port } = builderConfig.options;
+        const [ project, target, configuration] = browserTarget.split(':');
         const devServerConfig = this.context.architect.getBuilderConfiguration(
-            { project, target, configuration }
+            { project, target, configuration, overrides: { port } }
         );
 
         const devServerObservable = of(null).pipe(
