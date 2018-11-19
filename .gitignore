@@ -4,6 +4,8 @@ src/**/*.js.map
 src/**/*.d.ts
 e2e/dist
 e2e-v6/dist
+packages/**/src/**/*.js
+!webpack.config.js
 
 # IDEs
 .idea/
