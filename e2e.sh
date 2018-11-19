@@ -36,7 +36,7 @@ npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
 
 # run the app with auto exit & check the log
 cp 'main.ts' 'projects/electron/main.ts'    
-LOG=$(ng serve electron);
+LOG=$(ng serve electron --port 4242);
 
 if [[ ! $2 == "ubuntu"* ]] ; then
     if [[ ! $LOG == *"Angualr say: on init"* ]] ; then
