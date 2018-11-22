@@ -62,7 +62,7 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
             const child = proc.spawn(electron, [projectRoot, '--serve'], { stdio: ['pipe', 'inherit', 'inherit'] });
             child.on('close', () => subscriber.complete());
 
-            const teardown: TeardownLogic = () => kill(child.pid);
+            const teardown: TeardownLogic = () => kill(child.pid, 'SIGKILL');
             return teardown;
         });
     }
