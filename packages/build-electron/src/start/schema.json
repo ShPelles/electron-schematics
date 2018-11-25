@@ -4,7 +4,26 @@
     "title": "Start Angular-Electron Options Schema",
     "type": "object",
     "properties": {
+      "browserTarget": {
+        "type": "string",
+        "description": "Target to serve."
+      },
+      "webpackConfig": {
+        "type": "string",
+        "description": "The path to the Webpack configuration file."
+      },
+      "port": {
+        "type": "number",
+        "description": "Port to listen on.",
+        "default": 4200
+      },
+      "inspect": {
+        "type": "boolean",
+        "description": "Enable inspection of the main process."
+      }
     },
     "required": [
+      "browserTarget",
+      "webpackConfig"
     ]
   }

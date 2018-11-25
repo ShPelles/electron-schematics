@@ -14,16 +14,17 @@ import { concatMap, share, first, switchMap, dematerialize, materialize } from '
 
 import { ElectronStartBuilderSchema } from './schema';
 import { WebpackBuilder } from '@angular-devkit/build-webpack';
+import { DevServerBuilderOptions } from '@angular-devkit/build-angular';
 
 export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema> {
 
     constructor(public context: BuilderContext) { }
 
     run(builderConfig: BuilderConfiguration<ElectronStartBuilderSchema>): Observable<BuildEvent> {
-        const targetString = builderConfig.options.browserTarget;
-        const [project, target, configuration] = targetString.split(':');
-        const devServerConfig = this.context.architect.getBuilderConfiguration(
-            { project, target, configuration }
+        const { browserTarget, port } = builderConfig.options;
+        const [project, target, configuration] = browserTarget.split(':');
+        const devServerConfig = this.context.architect.getBuilderConfiguration<DevServerBuilderOptions>(
+            { project, target, configuration, overrides: { port } }
         );
 
         const devServerObservable = of(null).pipe(
@@ -57,9 +58,16 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         const projectRoot = getSystemPath(normalize(dist));
 
         const electron = require('electron');
+        const electronArgs = [projectRoot, '--serve'];
+
+        if (builderConfig.options.inspect) {
+          electronArgs.push('--inspect');
+        }
 
         return new Observable((subscriber) => {
-            const child = proc.spawn(electron, [projectRoot, '--serve'], { stdio: ['pipe', 'inherit', 'inherit'] });
+            const child = proc.spawn(electron, electronArgs, {
+              stdio: ['pipe', 'inherit', 'inherit']
+            });
             child.on('close', () => subscriber.complete());
 
             const teardown: TeardownLogic = () => kill(child.pid);
