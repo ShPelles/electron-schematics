@@ -58,15 +58,20 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         const projectRoot = getSystemPath(normalize(dist));
 
         const electron = require('electron');
-        const electronArgs = [projectRoot, '--serve'];
+        const electronArgs = [projectRoot];
+        const { inspect, port } = builderConfig.options;
 
-        if (builderConfig.options.inspect) {
+        if (inspect) {
           electronArgs.push('--inspect');
         }
 
         return new Observable((subscriber) => {
             const child = proc.spawn(electron, electronArgs, {
-              stdio: ['pipe', 'inherit', 'inherit']
+              stdio: ['pipe', 'inherit', 'inherit'],
+              env: {
+                ELECTRON_SERVE: 'true',
+                ELECTRON_PORT: String(port)
+              }
             });
             child.on('close', () => subscriber.complete());
 
