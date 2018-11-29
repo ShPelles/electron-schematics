@@ -1,5 +1,6 @@
 import proc from 'child_process';
 import kill from 'tree-kill';
+import * as url from 'url';
 
 import {
     Builder,
@@ -8,19 +9,20 @@ import {
     BuildEvent
 } from '@angular-devkit/architect';
 import { normalize, getSystemPath } from '@angular-devkit/core';
+import { WebpackBuilder } from '@angular-devkit/build-webpack';
 
 import { Observable, of, merge, TeardownLogic } from 'rxjs';
 import { concatMap, share, first, switchMap, dematerialize, materialize } from 'rxjs/operators';
 
 import { ElectronStartBuilderSchema } from './schema';
-import { WebpackBuilder } from '@angular-devkit/build-webpack';
 
 export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema> {
 
     constructor(public context: BuilderContext) { }
 
     run(builderConfig: BuilderConfiguration<ElectronStartBuilderSchema>): Observable<BuildEvent> {
-        const overrides = { ...builderConfig.options };
+        const browserTarget = builderConfig.options.browserTarget.replace(':serve', ':build');
+        const overrides = { ...builderConfig.options, ...{ browserTarget } };
         delete overrides.webpackConfig;
 
         const [project, target, configuration] = builderConfig.options.browserTarget.split(':');
@@ -59,7 +61,15 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         const electron = require('electron');
 
         return new Observable((subscriber) => {
-            const child = proc.spawn(electron, [projectRoot, '--serve'], { stdio: ['pipe', 'inherit', 'inherit'] });
+            // console.log(this._serveAddress(builderConfig.options));
+            const options: proc.SpawnOptions = { stdio: ['pipe', 'inherit', 'inherit'] };
+            const args = [projectRoot, encodeURIComponent(this._serveAddress(builderConfig.options)), '--serve'];
+            const child = proc.spawn(electron, args, options);
+            // const child = proc.spawn(
+            //     electron,
+            //     [projectRoot, this._serveAddress(builderConfig.options), '--serve'],
+            //     { stdio: ['pipe', 'inherit', 'inherit'] }
+            // );
             child.on('close', () => subscriber.complete());
 
             const teardown: TeardownLogic = () => kill(child.pid);
@@ -67,6 +77,18 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         });
     }
 
+    private _serveAddress(options: ElectronStartBuilderSchema): string {
+        // tslint:disable-next-line:max-line-length
+        // copied from https://github.com/angular/angular-cli/blob/508d4df48231d4db11b690c55d51a57094a9e3ff/packages/angular_devkit/build_angular/src/dev-server/index.ts#L115
+
+        // Resolve serve address.
+        const serverAddress = url.format({
+            protocol: options.ssl ? 'https' : 'http',
+            hostname: options.host === '0.0.0.0' ? 'localhost' : options.host,
+            port: options.port.toString(),
+        });
+        return serverAddress;
+    }
 }
 
 export default ElectronStartBuilder;

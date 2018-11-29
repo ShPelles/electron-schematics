@@ -12,7 +12,8 @@ function createWindow() {
   // and load the index.html of the app.
   const isServe = process.argv.includes('--serve');
   if (isServe) {
-    mainWindow.loadURL('http://localhost:4200/');
+    const url = decodeURIComponent(process.argv[2]);
+    mainWindow.loadURL(url);
   } else {
     mainWindow.loadFile('index.html');
   }

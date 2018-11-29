@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "debug": "node --nolazy --inspect-brk=9229 node_modules/@angular/cli/bin/ng serve electron"
   },
   "private": true,
   "dependencies": {
