@@ -21,10 +21,7 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
     constructor(public context: BuilderContext) { }
 
     run(builderConfig: BuilderConfiguration<ElectronStartBuilderSchema>): Observable<BuildEvent> {
-        const browserTarget = builderConfig.options.browserTarget.replace(':serve', ':build');
-        const overrides = { ...builderConfig.options, ...{ browserTarget } };
-        delete overrides.webpackConfig;
-
+        const { browserTarget, webpackConfig, ...overrides } = builderConfig.options;
         const [project, target, configuration] = builderConfig.options.browserTarget.split(':');
         const devServerConfig = this.context.architect.getBuilderConfiguration(
             { project, target, configuration, overrides }
