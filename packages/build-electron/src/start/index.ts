@@ -58,15 +58,14 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         const electron = require('electron');
 
         return new Observable((subscriber) => {
-            // console.log(this._serveAddress(builderConfig.options));
-            const options: proc.SpawnOptions = { stdio: ['pipe', 'inherit', 'inherit'] };
-            const args = [projectRoot, encodeURIComponent(this._serveAddress(builderConfig.options)), '--serve'];
-            const child = proc.spawn(electron, args, options);
-            // const child = proc.spawn(
-            //     electron,
-            //     [projectRoot, this._serveAddress(builderConfig.options), '--serve'],
-            //     { stdio: ['pipe', 'inherit', 'inherit'] }
-            // );
+            const options: proc.SpawnOptions = {
+                stdio: ['pipe', 'inherit', 'inherit'],
+                env: {
+                    ELECTRON_SERVE: 'true',
+                    ELECTRON_URL: this._serveAddress(builderConfig.options)
+                }
+            };
+            const child = proc.spawn(electron, [projectRoot], options);
             child.on('close', () => subscriber.complete());
 
             const teardown: TeardownLogic = () => kill(child.pid);
