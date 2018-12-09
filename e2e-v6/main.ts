@@ -16,10 +16,9 @@ function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
   // and load the index.html of the app.
-  const isServe = process.argv.includes('--serve');
+  const isServe = process.env.ELECTRON_SERVE === 'true';
   if (isServe) {
-    const url = decodeURIComponent(process.argv[2]);
-    mainWindow.loadURL(url);
+    mainWindow.loadURL(process.env.ELECTRON_URL);
   } else {
     mainWindow.loadFile('index.html');
   }
