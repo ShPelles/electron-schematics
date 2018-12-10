@@ -8,7 +8,7 @@ jobs:
   parameters:
     name: Linux
     vmImage: 'ubuntu-16.04'
-    appPath: './dist/electron-0.0.1-x86_64.AppImage'
+    appPath: './dist/electron-0.0.1.AppImage'
 
 - template: pipelines/job-template.yml
   parameters:
