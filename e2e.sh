@@ -53,6 +53,9 @@ ng build electron
 
 # check if electron app exists
 if [[ ! -f $1 ]] ; then
+    cd dist
+    ls
+    echo 'Not finding the file:' $1
     exit 1
 fi
 
