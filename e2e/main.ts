@@ -16,13 +16,12 @@ function createWindow() {
   mainWindow = new BrowserWindow({ width: 800, height: 600 });
 
   // and load the index.html of the app.
-  const isServe = process.argv.includes('--serve');
+  const isServe = process.env.ELECTRON_SERVE === 'true';
   if (isServe) {
-    mainWindow.loadURL('http://localhost:4200/');
+    mainWindow.loadURL(process.env.ELECTRON_URL);
   } else {
     mainWindow.loadFile('index.html');
   }
-
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
 

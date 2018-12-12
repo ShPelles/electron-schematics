@@ -16,9 +16,9 @@
   "homepage": "https://github.com/shpelles/electron-schematics#readme",
   "license": "MIT",
   "dependencies": {
-    "@angular-devkit/architect": "^0.8.4",
-    "@angular-devkit/build-angular": "^0.8.4",
-    "@angular-devkit/build-webpack": "^0.8.4",
+    "@angular-devkit/architect": "^0.10.6",
+    "@angular-devkit/build-angular": "^0.10.6",
+    "@angular-devkit/build-webpack": "^0.10.6",
     "electron": "^3.0.0",
     "electron-builder": "^20.28.4"
   },
