@@ -133,9 +133,15 @@
     "webpackConfig": {
       "type": "string",
       "description": "The path to the Webpack configuration file."
+    },
+    "inspect": {
+      "type": "boolean",
+      "description": "Enable inspection of the main process.",
+      "default": false
     }
   },
   "additionalProperties": false,
   "required": [
     "webpackConfig"
-  ] }
+  ]
+}

@@ -78,6 +78,7 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
           options: {
             browserTarget: `${options.relatedAppName}:serve`,
             webpackConfig: `${projectRoot}webpack.config.js`,
+            inspect: true
           },
           configurations: {
             dev: {
