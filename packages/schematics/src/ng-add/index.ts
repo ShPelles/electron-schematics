@@ -28,7 +28,7 @@ function addDependenciesToPackageJson() {
       {
         type: NodeDependencyType.Dev,
         name: 'electron',
-        version: latestVersions.eletron,
+        version: latestVersions.electron,
       },
       {
         type: NodeDependencyType.Dev,
