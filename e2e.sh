@@ -14,11 +14,11 @@ set -v
 
 # pack the packages
 cd packages/schematics
-npm version 0.0.1 -git-tag-version false
+SCHEMATICS_VERSION=$(node -p "require('./package.json').version")
 npm pack
 
 cd ../build-electron
-npm version 0.0.1 -git-tag-version false
+BUILDER_VERSION=$(node -p "require('./package.json').version")
 npm pack
 
 npm i @angular/cli -g
@@ -29,13 +29,13 @@ cd ../../e2e$3
 echo 'tested version is in ' $PWD
 
 # install packages & generate electron project
-npm i ../packages/schematics/electron-schematics-schematics-0.0.1.tgz
+npm i "../packages/schematics/electron-schematics-schematics-${SCHEMATICS_VERSION}.tgz"
 ng g @electron-schematics/schematics:electron
-npm i ../packages/build-electron/electron-schematics-build-electron-0.0.1.tgz
+npm i "../packages/build-electron/electron-schematics-build-electron-${BUILDER_VERSION}.tgz"
 
 
 # run the app with auto exit & check the log
-cp 'main.ts' 'projects/electron/main.ts'    
+cp 'main.ts' 'projects/electron/main.ts'
 LOG=$(ng serve electron --port 4242);
 echo $LOG
 
