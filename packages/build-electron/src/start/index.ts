@@ -58,7 +58,7 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         const electronArgs = [projectRoot];
         const { electronParams } = builderConfig.options;
         if (electronParams) {
-            electronArgs.unshift(`${electronParams}`);
+          electronArgs.unshift(...electronParams.split(' '));
         }
 
         const electron = require('electron');
