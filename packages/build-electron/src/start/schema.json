@@ -133,6 +133,11 @@
     "webpackConfig": {
       "type": "string",
       "description": "The path to the Webpack configuration file."
+    },
+
+    "electronParams": {
+      "type": "string",
+      "description": "A string of params to pass to the electron executable (eg. '--debug --inspect-brk=5858')."
     }
   },
   "additionalProperties": false,
