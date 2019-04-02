@@ -45,6 +45,11 @@ function addDependenciesToPackageJson() {
         name: '@electron-schematics/build-electron',
         version: latestVersions['@electron-schematics/build-electron'],
       },
+      {
+        type: NodeDependencyType.Dev,
+        name: '@angular-builders/custom-webpack',
+        version: latestVersions['@angular-builders/custom-webpack'],
+      },
     ].forEach(dependency => addPackageJsonDependency(host, dependency));
     return host;
   };
