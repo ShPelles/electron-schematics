@@ -101,8 +101,10 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
     workspace.projects[options.name] = project;
 
     if (options.relatedAppName === undefined) { throw new SchematicsException('relatedAppName must have a value'); }
-    // tslint:disable-next-line: no-non-null-assertion
-    workspace.projects[options.relatedAppName]!.architect!.build.builder = '"@angular-builders/custom-webpack:browser';
+    const relatedApp = workspace.projects[options.relatedAppName] || {};
+    const architect = relatedApp.architect || {};
+    const build = architect.build || {};
+    build.builder = '@angular-builders/custom-webpack:browser';
 
     host.overwrite(getWorkspacePath(host), JSON.stringify(workspace, null, 2));
   };
