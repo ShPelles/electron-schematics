@@ -21,6 +21,7 @@
   "homepage": "https://github.com/shpelles/electron-schematics#readme",
   "license": "MIT",
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^7.4.3",
     "@types/debug": "0.0.31",
     "@types/jasmine": "^2.8.8",
     "@types/node": "^10.11.3",
