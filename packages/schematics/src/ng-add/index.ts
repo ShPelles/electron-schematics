@@ -76,6 +76,9 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
           options: {
             relatedApp: options.relatedAppName,
             webpackConfig: `${projectRoot}main.webpack.config.js`,
+            customWebpackConfig: {
+              path: `${projectRoot}renderer.webpack.config.js`,
+            }
           },
         },
         serve: {
@@ -83,6 +86,9 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
           options: {
             browserTarget: `${options.relatedAppName}:serve`,
             webpackConfig: `${projectRoot}main.webpack.config.js`,
+            customWebpackConfig: {
+              path: `${projectRoot}renderer.webpack.config.js`,
+            }
           },
           configurations: {
             dev: {
