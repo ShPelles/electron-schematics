@@ -70,7 +70,8 @@ describe('ng-add', () => {
     expect(tree.files.includes('/projects/electron/main.ts')).toBe(true);
     expect(tree.files.includes('/projects/electron/package.json')).toBe(true);
     expect(tree.files.includes('/projects/electron/tsconfig.electron.json')).toBe(true);
-    expect(tree.files.includes('/projects/electron/webpack.config.js')).toBe(true);
+    expect(tree.files.includes('/projects/electron/main.webpack.config.js')).toBe(true);
+    expect(tree.files.includes('/projects/electron/renderer.webpack.config.js')).toBe(true);
   });
 
   it('should use the right project name', () => {
