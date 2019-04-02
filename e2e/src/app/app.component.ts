@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ipcRenderer } from 'electron';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,6 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit {
   title = 'e2e';
   ngOnInit(): void {
-    (window as any).require('electron').ipcRenderer.send('angular', 'on init');
+    ipcRenderer.send('angular', 'on init');
   }
 }
