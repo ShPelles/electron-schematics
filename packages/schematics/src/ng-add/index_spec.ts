@@ -65,7 +65,7 @@ describe('ng-add', () => {
 
     const workspace = JSON.parse(tree.readContent('/angular.json'));
     expect(workspace.projects.foo.architect.build.builder).toBe('@angular-builders/custom-webpack:browser');
-    expect(workspace.projects.foo.architect.serve.builder).toBe('@angular-builders/dev-server:serve');
+    expect(workspace.projects.foo.architect.serve.builder).toBe('@angular-builders/dev-server:generic');
   });
 
   it('should create files', () => {

@@ -115,7 +115,7 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
     const architect = relatedApp.architect || {};
 
     const serve = architect.serve || {};
-    serve.builder = '@angular-builders/dev-server:serve';
+    serve.builder = '@angular-builders/dev-server:generic';
 
     const build = architect.build || {};
     build.builder = '@angular-builders/custom-webpack:browser';
