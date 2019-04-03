@@ -6,4 +6,5 @@ export const latestVersions = {
   ['ts-loader']: '^5.2.1',
   ['copy-webpack-plugin']: '^4.5.2',
   ['@angular-builders/custom-webpack']: '^7.4.3',
+  ['@angular-builders/dev-server']: '^7.3.1',
 };

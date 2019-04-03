@@ -24,6 +24,9 @@ describe('ng-add', () => {
             "architect": {
               "build": {
                 "builder": "@angular-devkit/build-angular:browser"
+              },
+              "serve": {
+                "builder": "@angular-devkit/build-angular:serve"
               }
             }
           },
@@ -57,11 +60,12 @@ describe('ng-add', () => {
     expect(workspace.projects.electron.architect.serve.options.browserTarget).toBe(`bar:serve`);
   });
 
-  it('should set a custom builder in the related app', () => {
+  it('should set a custom builders in the related app', () => {
     const tree = runner.runSchematic('ng-add', {}, appTree);
 
     const workspace = JSON.parse(tree.readContent('/angular.json'));
     expect(workspace.projects.foo.architect.build.builder).toBe('@angular-builders/custom-webpack:browser');
+    expect(workspace.projects.foo.architect.serve.builder).toBe('@angular-builders/dev-server:serve');
   });
 
   it('should create files', () => {
@@ -90,7 +94,8 @@ describe('ng-add', () => {
     const tree = runner.runSchematic('ng-add', {}, appTree);
 
     const devPackages = [
-      'electron', 'ts-loader', 'copy-webpack-plugin', '@electron-schematics/build-electron', '@angular-builders/custom-webpack'
+      'electron', 'ts-loader', 'copy-webpack-plugin', '@electron-schematics/build-electron',
+      '@angular-builders/custom-webpack', '@angular-builders/dev-server'
     ];
     const packageJson = JSON.parse(tree.readContent('/package.json'));
     devPackages.forEach(pack =>

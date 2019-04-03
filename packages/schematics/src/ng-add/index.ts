@@ -50,6 +50,11 @@ function addDependenciesToPackageJson() {
         name: '@angular-builders/custom-webpack',
         version: latestVersions['@angular-builders/custom-webpack'],
       },
+      {
+        type: NodeDependencyType.Dev,
+        name: '@angular-builders/dev-server',
+        version: latestVersions['@angular-builders/dev-server'],
+      },
     ].forEach(dependency => addPackageJsonDependency(host, dependency));
     return host;
   };
@@ -108,8 +113,13 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
     if (options.relatedAppName === undefined) { throw new SchematicsException('relatedAppName must have a value'); }
     const relatedApp = workspace.projects[options.relatedAppName] || {};
     const architect = relatedApp.architect || {};
+
+    const serve = architect.serve || {};
+    serve.builder = '@angular-builders/dev-server:serve';
+
     const build = architect.build || {};
     build.builder = '@angular-builders/custom-webpack:browser';
+
     const buildOptions = build.options || {};
     buildOptions.customWebpackConfig = {
       path: `${projectRoot}renderer.webpack.config.js`,
