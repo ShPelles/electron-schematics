@@ -17,45 +17,24 @@ import {
   getWorkspace, WorkspaceSchema, getWorkspacePath,
 } from '@schematics/angular/utility/config';
 import { validateProjectName } from '@schematics/angular/utility/validation';
-import { NodeDependencyType, addPackageJsonDependency } from '@schematics/angular/utility/dependencies';
+import { NodeDependencyType, addPackageJsonDependency, NodeDependency } from '@schematics/angular/utility/dependencies';
 
 import { Schema as ElectronOptions } from './schema';
 import { latestVersions } from '../utility/latest-versions';
 
 function addDependenciesToPackageJson() {
   return (host: Tree) => {
-    [
-      {
-        type: NodeDependencyType.Dev,
-        name: 'electron',
-        version: latestVersions.electron,
-      },
-      {
-        type: NodeDependencyType.Dev,
-        name: 'ts-loader',
-        version: latestVersions['ts-loader'],
-      },
-      {
-        type: NodeDependencyType.Dev,
-        name: 'copy-webpack-plugin',
-        version: latestVersions['copy-webpack-plugin'],
-      },
-      {
-        type: NodeDependencyType.Dev,
-        name: '@electron-schematics/build-electron',
-        version: latestVersions['@electron-schematics/build-electron'],
-      },
-      {
-        type: NodeDependencyType.Dev,
-        name: '@angular-builders/custom-webpack',
-        version: latestVersions['@angular-builders/custom-webpack'],
-      },
-      {
-        type: NodeDependencyType.Dev,
-        name: '@angular-builders/dev-server',
-        version: latestVersions['@angular-builders/dev-server'],
-      },
-    ].forEach(dependency => addPackageJsonDependency(host, dependency));
+    for (const packageName in latestVersions) {
+      if (latestVersions.hasOwnProperty(packageName)) {
+        const version = latestVersions[packageName as keyof typeof latestVersions];
+        const dependency: NodeDependency = {
+          type: NodeDependencyType.Dev,
+          name: packageName,
+          version: version,
+        };
+        addPackageJsonDependency(host, dependency);
+      }
+    }
     return host;
   };
 }
@@ -110,6 +89,15 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
     if (options.name === undefined) { throw new SchematicsException('Name must have a value'); }
     workspace.projects[options.name] = project;
 
+    host.overwrite(getWorkspacePath(host), JSON.stringify(workspace, null, 2));
+  };
+}
+
+function replaceBuildersOfRelatedApp(options: ElectronOptions, workspace: WorkspaceSchema): Rule {
+  return (host: Tree, _context: SchematicContext) => {
+
+    const projectRoot = `${workspace.newProjectRoot}/${options.name}/`;
+
     if (options.relatedAppName === undefined) { throw new SchematicsException('relatedAppName must have a value'); }
     const relatedApp = workspace.projects[options.relatedAppName] || {};
     const architect = relatedApp.architect || {};
@@ -124,7 +112,6 @@ function addAppToWorkspaceFile(options: ElectronOptions, workspace: WorkspaceSch
     buildOptions.customWebpackConfig = {
       path: `${projectRoot}renderer.webpack.config.js`,
     };
-
 
     host.overwrite(getWorkspacePath(host), JSON.stringify(workspace, null, 2));
   };
@@ -150,6 +137,7 @@ export function electron(options: ElectronOptions): Rule {
 
     return chain([
       addAppToWorkspaceFile(options, workspace),
+      replaceBuildersOfRelatedApp(options, workspace),
       mergeWith(
         apply(url('./files'), [
           template({
