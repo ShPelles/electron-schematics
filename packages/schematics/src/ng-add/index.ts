@@ -14,8 +14,9 @@ import {
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
 import {
-  getWorkspace, WorkspaceSchema, getWorkspacePath,
+  getWorkspace, getWorkspacePath,
 } from '@schematics/angular/utility/config';
+import { WorkspaceSchema } from '@schematics/angular/utility/workspace-models';
 import { validateProjectName } from '@schematics/angular/utility/validation';
 import { NodeDependencyType, addPackageJsonDependency } from '@schematics/angular/utility/dependencies';
 
