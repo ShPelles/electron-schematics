@@ -16,15 +16,15 @@
   "homepage": "https://github.com/shpelles/electron-schematics#readme",
   "license": "MIT",
   "dependencies": {
-    "@angular-devkit/architect": "^0.12.3",
-    "@angular-devkit/build-angular": "^0.12.3",
-    "@angular-devkit/build-webpack": "^0.12.3",
-    "electron": "^3.0.0",
-    "electron-builder": "^20.28.4"
+    "@angular-devkit/architect": "^0.13.8",
+    "@angular-devkit/build-angular": "^0.13.8",
+    "@angular-devkit/build-webpack": "^0.13.8",
+    "electron": "^4.1.4",
+    "electron-builder": "^20.39.0"
   },
   "devDependencies": {
-    "@types/webpack": "^4.4.13",
-    "@types/webpack-dev-server": "^3.1.1",
-    "typescript": "^3.1.1"
+    "@types/webpack": "^4.4.27",
+    "@types/webpack-dev-server": "^3.1.5",
+    "typescript": "^3.4.3"
   }
 }
