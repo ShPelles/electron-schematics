@@ -21,7 +21,7 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
     constructor(public context: BuilderContext) { }
 
     run(builderConfig: BuilderConfiguration<ElectronStartBuilderSchema>): Observable<BuildEvent> {
-        const { browserTarget, webpackConfig, ...overrides } = builderConfig.options;
+        const { browserTarget, webpackConfig, electronParams, ...overrides } = builderConfig.options;
         const [project, target, configuration] = browserTarget.split(':');
         const devServerConfig = this.context.architect.getBuilderConfiguration(
             { project, target, configuration, overrides }
@@ -55,6 +55,12 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
         const dist = `${this.context.workspace.root}/dist/${project}`;
         const projectRoot = getSystemPath(normalize(dist));
 
+        const electronArgs = [projectRoot];
+        const { electronParams } = builderConfig.options;
+        if (electronParams) {
+          electronArgs.unshift(...electronParams.split(' '));
+        }
+
         const electron = require('electron');
 
         return new Observable((subscriber) => {
@@ -65,7 +71,7 @@ export class ElectronStartBuilder implements Builder<ElectronStartBuilderSchema>
                     ELECTRON_URL: this._serveAddress(builderConfig.options)
                 }
             };
-            const child = proc.spawn(electron, [projectRoot], options);
+            const child = proc.spawn(electron, electronArgs, options);
             child.on('close', () => subscriber.complete());
 
             const teardown: TeardownLogic = () => kill(child.pid, 'SIGKILL');
