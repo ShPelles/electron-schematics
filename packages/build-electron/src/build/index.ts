@@ -42,7 +42,7 @@ export class ElectronBuilder implements Builder<ElectronBuilderSchema> {
             { project, target, configuration }
         );
 
-        buildConfig.options.baseHref = '';
+        buildConfig.options.baseHref = './';
 
         return this.context.architect.run(buildConfig);
     }
