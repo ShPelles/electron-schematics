@@ -21,7 +21,7 @@ cd ../build-electron
 BUILDER_VERSION=$(node -p "require('./package.json').version")
 npm pack
 
-npm i @angular/cli -g
+npm i @angular/cli@7.3.9 -g
 
 
 # goto e2e directory
