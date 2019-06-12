@@ -13,11 +13,10 @@ import {
 } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 
-import {
-  getWorkspace, WorkspaceSchema, getWorkspacePath,
-} from '@schematics/angular/utility/config';
-import { validateProjectName } from '@schematics/angular/utility/validation';
+import { getWorkspace, getWorkspacePath } from '@schematics/angular/utility/config';
 import { NodeDependencyType, addPackageJsonDependency } from '@schematics/angular/utility/dependencies';
+import { WorkspaceSchema } from '@schematics/angular/utility/workspace-models';
+import { validateProjectName } from '@schematics/angular/utility/validation';
 
 import { Schema as ElectronOptions } from './schema';
 import { latestVersions } from '../utility/latest-versions';

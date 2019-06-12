@@ -34,8 +34,8 @@ describe('ng-add', () => {
     appTree = new UnitTestTree(new HostTree(host));
   });
 
-  it('should add the application to the workspace', () => {
-    const tree = runner.runSchematic('ng-add', {}, appTree);
+  it('should add the application to the workspace', async () => {
+    const tree = await runner.runSchematicAsync('ng-add', {}, appTree).toPromise();
 
     const workspace = JSON.parse(tree.readContent('/angular.json'));
     expect(workspace.projects.electron).toBeDefined();
@@ -43,16 +43,16 @@ describe('ng-add', () => {
     expect(workspace.projects.electron.architect.serve.options.browserTarget).toBe(`foo:serve`);
   });
 
-  it('should use the right application', () => {
+  it('should use the right application', async () => {
     const opts: Schema = { relatedAppName: 'bar' };
-    const tree = runner.runSchematic('ng-add', opts, appTree);
+    const tree = await runner.runSchematicAsync('ng-add', opts, appTree).toPromise();
 
     const workspace = JSON.parse(tree.readContent('/angular.json'));
     expect(workspace.projects.electron.architect.serve.options.browserTarget).toBe(`bar:serve`);
   });
 
-  it('should create files', () => {
-    const tree = runner.runSchematic('ng-add', {}, appTree);
+  it('should create files', async () => {
+    const tree = await runner.runSchematicAsync('ng-add', {}, appTree).toPromise();
 
     expect(tree.files.includes('/projects/electron/main.ts')).toBe(true);
     expect(tree.files.includes('/projects/electron/package.json')).toBe(true);
@@ -60,9 +60,9 @@ describe('ng-add', () => {
     expect(tree.files.includes('/projects/electron/webpack.config.js')).toBe(true);
   });
 
-  it('should use the right project name', () => {
+  it('should use the right project name', async () => {
     const opts: Schema = { name: 'shell' };
-    const tree = runner.runSchematic('ng-add', opts, appTree);
+    const tree = await runner.runSchematicAsync('ng-add', opts, appTree).toPromise();
 
     const workspace = JSON.parse(tree.readContent('/angular.json'));
     expect(workspace.projects.shell).toBeDefined();
@@ -72,8 +72,8 @@ describe('ng-add', () => {
     expect(tree.files.includes('/projects/electron/main.ts')).toBe(false);
   });
 
-  it('should add & install packages', () => {
-    const tree = runner.runSchematic('ng-add', {}, appTree);
+  it('should add & install packages', async () => {
+    const tree = await runner.runSchematicAsync('ng-add', {}, appTree).toPromise();
 
     const devPackages = ['electron', 'ts-loader', 'copy-webpack-plugin', '@electron-schematics/build-electron'];
     const packageJson = JSON.parse(tree.readContent('/package.json'));
@@ -92,8 +92,8 @@ describe('ng-add', () => {
     ]);
   });
 
-  it('should not insall packages when --skipInstall', () => {
-    const tree = runner.runSchematic('ng-add', { skipInstall: true }, appTree);
+  it('should not insall packages when --skipInstall', async () => {
+    const tree = await runner.runSchematicAsync('ng-add', { skipInstall: true }, appTree).toPromise();
 
     const devPackages = ['electron', 'ts-loader', 'copy-webpack-plugin', '@electron-schematics/build-electron'];
     const packageJson = JSON.parse(tree.readContent('/package.json'));
