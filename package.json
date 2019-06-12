@@ -1,6 +1,6 @@
 {
   "name": "electron-schematics",
-  "version": "7.0.1",
+  "version": "7.0.2",
   "description": "Electron extensions for Angular Schematics",
   "scripts": {
     "build": "tsc --project tsconfig.json",
