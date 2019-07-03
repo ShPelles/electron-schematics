@@ -22,8 +22,3 @@ jobs:
     # vmImage: 'vs2017-win2016'
     # appPath: './dist/electron Setup 0.0.1.exe'
 
-- template: pipelines/job-template.yml
-  parameters:
-    name: Angular6
-    e2eVersion: '-v6'
-
