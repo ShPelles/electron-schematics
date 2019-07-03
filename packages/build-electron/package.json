@@ -1,6 +1,6 @@
 {
   "name": "@electron-schematics/build-electron",
-  "version": "7.0.2",
+  "version": "8.0.0",
   "description": "Electron Build Facade",
   "main": "src/index.js",
   "typings": "src/index.d.ts",
@@ -16,9 +16,9 @@
   "homepage": "https://github.com/shpelles/electron-schematics#readme",
   "license": "MIT",
   "dependencies": {
-    "@angular-devkit/architect": "^0.12.3",
-    "@angular-devkit/build-angular": "^0.12.3",
-    "@angular-devkit/build-webpack": "^0.12.3",
+    "@angular-devkit/architect": "^0.800.0",
+    "@angular-devkit/build-angular": "^0.800.0",
+    "@angular-devkit/build-webpack": "^0.800.0",
     "electron": "^3.0.0",
     "electron-builder": "^20.28.4"
   },
