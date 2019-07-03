@@ -30,8 +30,8 @@ echo 'tested version is in ' $PWD
 
 # install packages & generate electron project
 npm i "../packages/schematics/electron-schematics-schematics-${SCHEMATICS_VERSION}.tgz"
-ng g @electron-schematics/schematics:electron
 npm i "../packages/build-electron/electron-schematics-build-electron-${BUILDER_VERSION}.tgz"
+ng g @electron-schematics/schematics:electron
 
 
 # run the app with auto exit & check the log
