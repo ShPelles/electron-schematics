@@ -1,62 +1,67 @@
-import {
-    Builder,
-    BuilderContext,
-    BuilderConfiguration,
-    BuildEvent
-} from '@angular-devkit/architect';
-import { BrowserBuilderSchema } from '@angular-devkit/build-angular';
+import { BuilderContext, BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
+import { getSystemPath, json, normalize, resolve } from '@angular-devkit/core';
+import { Schema as BrowserBuilderSchema } from '@angular-devkit/build-angular/src/browser/schema';
+import { runWebpack } from '@angular-devkit/build-webpack';
 
 import { Observable, of, from } from 'rxjs';
-import { concatMap, first, mapTo, catchError } from 'rxjs/operators';
+import { concatMap, first, mapTo, catchError, switchMap } from 'rxjs/operators';
+import * as webpack from 'webpack';
+
 import { build } from 'electron-builder';
-
 import { ElectronBuilderSchema } from './schema';
-import { WebpackBuilder } from '@angular-devkit/build-webpack';
-import { WebpackBuilderSchema } from '@angular-devkit/build-webpack/src/webpack/schema';
 
+function _buildMain(
+    options: ElectronBuilderSchema,
+    context: BuilderContext,
+): Observable<BuilderOutput> {
+    const configPath = resolve(normalize(context.workspaceRoot), normalize(options.webpackConfig));
 
-export class ElectronBuilder implements Builder<ElectronBuilderSchema> {
-
-    constructor(public context: BuilderContext) { }
-
-    run(builderConfig: BuilderConfiguration<ElectronBuilderSchema>): Observable<BuildEvent> {
-
-        return this._buildMain(builderConfig).pipe(
-            concatMap(() => this._buildRenderer(builderConfig)),
-            concatMap(() => this._packApp(builderConfig)),
-        );
-    }
-
-    private _buildMain(builderConfig: BuilderConfiguration<WebpackBuilderSchema>): Observable<BuildEvent> {
-        const webpackBuilder = new WebpackBuilder({ ...this.context });
-        return webpackBuilder.run(builderConfig).pipe(
-            first(),
-        );
-    }
-
-    private _buildRenderer(builderConfig: BuilderConfiguration<ElectronBuilderSchema>): Observable<BuildEvent> {
-        const project = builderConfig.options.relatedApp;
-        const target = 'build';
-        const configuration = undefined;
-        const buildConfig = this.context.architect.getBuilderConfiguration<BrowserBuilderSchema>(
-            { project, target, configuration }
-        );
-
-        buildConfig.options.baseHref = './';
-
-        return this.context.architect.run(buildConfig);
-    }
-
-    private _packApp(builderConfig: BuilderConfiguration<ElectronBuilderSchema>): Observable<BuildEvent> {
-        return from(build({ config: builderConfig.root + 'electron-builder.json' })).pipe(
-            mapTo({ success: true }),
-            catchError(err => {
-                this.context.logger.error('Failed to build the electron app', err);
-                return of({ success: false });
-            }),
-        );
-    }
-
+    return from(import(getSystemPath(configPath))).pipe(
+        switchMap((config: webpack.Configuration) => runWebpack(config, context)),
+        first(),
+    );
 }
 
-export default ElectronBuilder;
+async function _buildRenderer(
+    options: ElectronBuilderSchema,
+    context: BuilderContext,
+): Promise<Observable<BuilderOutput>> {
+
+    const target = {
+        project: options.relatedApp,
+        target: 'build',
+        configuration: undefined,
+    } as Target;
+
+    const overrides = {
+        baseHref: './',
+    } as Partial<BrowserBuilderSchema> & json.JsonObject;
+
+    const buildTargetRun = await context.scheduleTarget(target, overrides);
+    return buildTargetRun.output;
+}
+
+function _packApp(
+    options: ElectronBuilderSchema,
+    context: BuilderContext,
+): Observable<BuilderOutput> {
+    return from(build({ config: context.workspaceRoot + 'electron-builder.json' })).pipe(
+        mapTo({ success: true }),
+        catchError(err => {
+            context.logger.error('Failed to build the electron app', err);
+            return of({ success: false });
+        }),
+    );
+}
+
+function buildElectron(
+    options: ElectronBuilderSchema,
+    context: BuilderContext,
+): Observable<BuilderOutput> {
+    return _buildMain(options, context).pipe(
+        concatMap(() => _buildRenderer(options, context)),
+        concatMap(() => _packApp(options, context)),
+    );
+}
+
+export default createBuilder<json.JsonObject & ElectronBuilderSchema>(buildElectron);

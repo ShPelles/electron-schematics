@@ -1,5 +1,5 @@
-import { DevServerBuilderOptions } from '@angular-devkit/build-angular';
-import { WebpackBuilderSchema } from '@angular-devkit/build-webpack/src/webpack/schema';
+import { Schema as DevServerBuilderOptions,  } from '@angular-devkit/build-angular/src/dev-server/schema';
+import { Schema as WebpackBuilderSchema } from '@angular-devkit/build-webpack/src/webpack/schema';
 
 export interface ElectronStartBuilderSchema extends DevServerBuilderOptions, WebpackBuilderSchema {
     electronParams: string;
