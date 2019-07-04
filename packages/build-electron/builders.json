@@ -2,12 +2,12 @@
   "$schema": "./node_modules/@angular-devkit/architect/src/builders-schema.json",
   "builders": {
     "start": {
-      "class": "./src/start",
+      "implementation": "./src/start",
       "schema": "./src/start/schema.json",
       "description": "Run an Electron application."
     },
     "build": {
-      "class": "./src/build",
+      "implementation": "./src/build",
       "schema": "./src/build/schema.json",
       "description": "Build an Electron application."
     }
