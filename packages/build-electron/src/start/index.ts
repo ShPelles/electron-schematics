@@ -4,10 +4,10 @@ import * as url from 'url';
 
 import { BuilderContext, BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
 import { normalize, getSystemPath, json, resolve } from '@angular-devkit/core';
-import { runWebpack } from '@angular-devkit/build-webpack';
+import { runWebpack, runWebpackDevServer } from '@angular-devkit/build-webpack';
 
-import { Observable, of, merge, TeardownLogic, from } from 'rxjs';
-import { concatMap, share, first, switchMap, dematerialize, materialize, tap } from 'rxjs/operators';
+import { Observable, merge, TeardownLogic, from } from 'rxjs';
+import { share, first, switchMap, dematerialize, materialize, tap, mapTo } from 'rxjs/operators';
 import * as webpack from 'webpack';
 
 import { ElectronStartBuilderSchema } from './schema';
@@ -19,8 +19,9 @@ async function startElectron(
     const { browserTarget, webpackConfig, electronParams, ...overrides } = options;
     const [project, target, configuration] = browserTarget.split(':');
 
-    const devServerObservable = of(null).pipe(
-        concatMap(async () => (await context.scheduleTarget({ project, target, configuration }, overrides as json.JsonObject)).result),
+    const builderRun = await context.scheduleTarget({ project, target, configuration }, overrides as json.JsonObject);
+    const devServerObservable = builderRun.progress.pipe(
+        mapTo({ success: false } as BuilderOutput),
         materialize(),
         share(),
     );
@@ -45,8 +46,8 @@ function _buildElectron(
 
     return from(import(getSystemPath(configPath))).pipe(
         tap((config: webpack.Configuration) => config.watch = true),
+        tap((config: webpack.Configuration) => delete (config as any).default),
         switchMap(config => runWebpack(config, context)),
-        first(),
     );
 }
 
@@ -74,7 +75,7 @@ function _runElectron(
                 ELECTRON_URL: _serveAddress(options)
             }
         };
-        const child = proc.spawn('electron', electronArgs, spawnOptions);
+        const child = proc.spawn(electron as any, electronArgs, spawnOptions);
         child.on('close', () => subscriber.complete());
 
         const teardown: TeardownLogic = () => kill(child.pid, 'SIGKILL');
