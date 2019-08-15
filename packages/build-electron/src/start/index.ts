@@ -46,6 +46,8 @@ function _buildElectron(
 
     return from(import(getSystemPath(configPath))).pipe(
         tap((config: webpack.Configuration) => config.watch = true),
+        // For no reason I can fathom, a property called "default" is tacked on to this object by person or persons unknown.
+        // If it is not deleted before we continue, bad things happen.
         tap((config: webpack.Configuration) => delete (config as any).default),
         switchMap(config => runWebpack(config, context)),
     );

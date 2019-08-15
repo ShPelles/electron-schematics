@@ -2,6 +2,9 @@
     "directories": {
         "app": "./dist/<%= name %>"
     },
+    "win": {
+        "target": "portable"
+    },
     "files": [
         "**/*",
         {
