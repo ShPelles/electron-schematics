@@ -20,11 +20,17 @@
     "@angular-devkit/build-angular": "^0.12.3",
     "@angular-devkit/build-webpack": "^0.12.3",
     "electron": "^3.0.0",
-    "electron-builder": "^20.28.4"
+    "electron-builder": "^20.28.4",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@types/webpack": "^4.4.13",
     "@types/webpack-dev-server": "^3.1.1",
     "typescript": "^3.1.1"
-  }
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
