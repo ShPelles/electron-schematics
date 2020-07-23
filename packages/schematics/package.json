@@ -21,9 +21,9 @@
   "homepage": "https://github.com/shpelles/electron-schematics#readme",
   "license": "MIT",
   "dependencies": {
-    "@angular-devkit/core": "^0.8.4",
+    "@angular-devkit/core": "^8.3.29",
     "@angular-devkit/schematics": "^0.8.4",
-    "@schematics/angular": "^0.8.4"
+    "@schematics/angular": "^8.3.29"
   },
   "devDependencies": {
     "typescript": "^3.0.3"
