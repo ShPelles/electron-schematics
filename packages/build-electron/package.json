@@ -19,7 +19,7 @@
     "@angular-devkit/architect": "^0.12.3",
     "@angular-devkit/build-angular": "^0.12.3",
     "@angular-devkit/build-webpack": "^0.12.3",
-    "electron": "^3.0.0",
+    "electron": "^10.1.5",
     "electron-builder": "^20.28.4"
   },
   "devDependencies": {
